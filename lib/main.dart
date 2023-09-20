@@ -58,37 +58,39 @@ class MainApp extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 32.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 68,
-                            width: 68,
-                            color: Colors.black38,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("data"),
-                                Container(
-                                  color: Colors.green,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("0.95 кг"),
-                                      Text("379 руб"),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                      child: SizedBox(
+                        height: 68,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 68,
+                              color: Colors.black38,
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("data"),
+                                  Container(
+                                    color: Colors.green,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("0.95 кг"),
+                                        Text("379 руб"),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
