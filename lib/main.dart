@@ -25,6 +25,7 @@ class MainApp extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,6 +47,91 @@ class MainApp extends StatelessWidget {
                     ),
                     child: Icon(Icons.sort),
                   )
+                ],
+              ),
+              Expanded(child: Container()),
+              Divider(),
+              SizedBox(
+                height: 24,
+              ),
+              Text(
+                "В вашей покупке",
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                  color: Color(0xff252849),
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "10 товаров",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Color(0xff252849),
+                    ),
+                  ),
+                  Text(
+                    "7842 руб",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: Color(0xff252849),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 11,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Скидка 5%",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Color(0xff252849),
+                    ),
+                  ),
+                  Text(
+                    "-300 руб",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: Color(0xff252849),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 11,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Итого",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Color(0xff252849),
+                    ),
+                  ),
+                  Text(
+                    "7542 руб",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Color(0xff252849),
+                    ),
+                  ),
                 ],
               ),
             ],
