@@ -137,6 +137,18 @@ class MainApp extends StatelessWidget {
             ],
           ),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.article), label: "Каталог"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Поиск"),
+            BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: "Корзина"),
+            BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Личное"),
+          ],
+          currentIndex: 3,
+          selectedItemColor: Color(0xFF67CD00),
+          unselectedItemColor: Color(0xff60607B),
+          type: BottomNavigationBarType.fixed,
+        ),
       ),
     );
   }
