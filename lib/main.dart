@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:surf_flutter_x6_retail_groupe_app/components/appbar_title.dart';
+import 'package:surf_flutter_x6_retail_groupe_app/models/product_entity.dart';
+import 'package:surf_flutter_x6_retail_groupe_app/models/products.dart';
 
 void main() {
   runApp(const MainApp());
@@ -15,7 +18,7 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          leading: Icon(
+          leading: const Icon(
             Icons.arrow_back_ios,
             color: Colors.green,
             size: 18,
@@ -23,16 +26,16 @@ class MainApp extends StatelessWidget {
           title: AppBarTitle(number: "56", date: "24.02.23 в 12:23"),
         ),
         body: Padding(
-          padding: EdgeInsets.fromLTRB(20, 24, 20, 40),
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Список покупок",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18,
                       color: Color(0xff252849),
@@ -42,20 +45,24 @@ class MainApp extends StatelessWidget {
                     height: 32,
                     width: 32,
                     decoration: BoxDecoration(
-                      color: Color(0xffF1F1F1),
+                      color: const Color(0xffF1F1F1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Icon(Icons.sort),
+                    child: const Icon(Icons.sort),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 6,
+                  itemCount: dataForStudents.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final product = dataForStudents[index];
+                    final amountName = product.amount is Grams ? "г" : "шт";
+                    final realPrice = product.price - product.sale;
+
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 32.0),
                       child: SizedBox(
@@ -63,11 +70,16 @@ class MainApp extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 68,
-                              color: Colors.black38,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                product.imageUrl,
+                                fit: BoxFit.fill,
+                                height: 68,
+                                width: 68,
+                              ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 12,
                             ),
                             Expanded(
@@ -75,16 +87,35 @@ class MainApp extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("data"),
-                                  Container(
-                                    color: Colors.green,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("0.95 кг"),
-                                        Text("379 руб"),
-                                      ],
-                                    ),
+                                  Text(product.title),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("${product.amount.value} $amountName"),
+                                      Row(
+                                        children: [
+                                          if (product.sale > 0)
+                                            Text(
+                                              "${product.price} руб",
+                                              style: TextStyle(decoration: TextDecoration.lineThrough),
+                                            ),
+                                          const SizedBox(
+                                            width: 16,
+                                          ),
+                                          if (product.sale > 0)
+                                            Text(
+                                              "${product.price - product.sale} руб",
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
+                                            )
+                                          else
+                                            Text(
+                                              "${product.price - product.sale} руб",
+                                            ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -96,8 +127,8 @@ class MainApp extends StatelessWidget {
                   },
                 ),
               ),
-              Divider(),
-              SizedBox(
+              const Divider(),
+              const SizedBox(
                 height: 24,
               ),
               Text(
