@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:surf_flutter_courses_template/DataAccess/mock_product_repository.dart';
-import 'package:surf_flutter_courses_template/DataAccess/Interfaces/product_repository.dart';
 import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
 
 class RecipeScreen extends StatelessWidget {
