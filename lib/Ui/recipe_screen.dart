@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
+import 'package:surf_flutter_courses_template/Ui/product_card.dart';
 
 class RecipeScreen extends StatelessWidget {
   final ProductService _service;
@@ -10,9 +13,33 @@ class RecipeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final products = _service.getProducts();
+
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipe"),
+        centerTitle: true,
+        title: Column(
+          children: [
+            Text("Чек № 56"),
+            Text(
+              "24.02.23 в 12:23",
+              style: theme.appBarTheme.titleTextStyle!.copyWith(
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff60607B),
+              ),
+            ),
+          ],
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Icon(
+            Icons.arrow_back_ios,
+            size: 24,
+            color: Color(0xFF67CD00),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
@@ -23,19 +50,26 @@ class RecipeScreen extends StatelessWidget {
               children: [
                 Text(
                   "Список покупок",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF252849)),
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    height: 32,
-                    width: 32,
-                    color: Color(0xFFF1F1F1),
-                    child: Center(
-                      child: Icon(
-                        Icons.sort,
-                        size: 24,
-                        color: Color(0xFF60607B),
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => Container(),
+                      );
+                    },
+                    child: Container(
+                      height: 32,
+                      width: 32,
+                      color: Color(0xFFF1F1F1),
+                      child: Center(
+                        child: Icon(
+                          Icons.sort,
+                          size: 24,
+                          color: Color(0xFF60607B),
+                        ),
                       ),
                     ),
                   ),
@@ -83,78 +117,13 @@ class RecipeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 3,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.abc), label: "a"),
-          BottomNavigationBarItem(icon: Icon(Icons.baby_changing_station), label: "b"),
-          BottomNavigationBarItem(icon: Icon(Icons.cabin), label: "c"),
-          BottomNavigationBarItem(icon: Icon(Icons.dangerous), label: "d"),
-        ],
-      ),
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key,
-    required this.product,
-  });
-
-  final ProductEntity product;
-
-  @override
-  Widget build(BuildContext context) {
-    final amountName = product.amount is Grams ? "г" : "шт";
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 32),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 68,
-            width: 68,
-            color: Colors.amberAccent,
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: SizedBox(
-              height: 68,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(product.title),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('${product.amount.value} $amountName'),
-                      Row(
-                        children: [
-                          if (product.sale > 0)
-                            Text(
-                              '${product.price} руб',
-                              style: TextStyle(decoration: TextDecoration.lineThrough, color: Colors.grey),
-                            ),
-                          SizedBox(width: 16),
-                          if (product.sale > 0)
-                            Text(
-                              '${product.price - product.sale} руб',
-                              style: TextStyle(color: Colors.red),
-                            )
-                          else
-                            Text(
-                              '${product.price - product.sale} руб',
-                            ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          )
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: "Каталог"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Поиск"),
+          BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: "Корзина"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Личное"),
         ],
       ),
     );
