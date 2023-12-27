@@ -1,7 +1,7 @@
 import 'package:surf_flutter_courses_template/DataAccess/Interfaces/product_repository.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
 
-class MockProductRepository implements ProductRepository {
+class PgProductRepository implements ProductRepository {
   final _dataForStudents = <ProductEntity>[
     ProductEntity(
       title: 'Арбуз',

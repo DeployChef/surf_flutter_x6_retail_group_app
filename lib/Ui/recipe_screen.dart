@@ -2,17 +2,29 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
-import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
-import 'package:surf_flutter_courses_template/Ui/product_card.dart';
+import 'package:surf_flutter_courses_template/Domain/Models/sort_type.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/bottom_bar.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/product_card.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/product_title.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/totals.dart';
 
-class RecipeScreen extends StatelessWidget {
+class RecipeScreen extends StatefulWidget {
   final ProductService _service;
 
   const RecipeScreen({super.key, required ProductService service}) : _service = service;
 
   @override
+  State<RecipeScreen> createState() => _RecipeScreenState();
+}
+
+class _RecipeScreenState extends State<RecipeScreen> {
+  SortTypes _lastSortType = SortTypes.noSort;
+
+  @override
   Widget build(BuildContext context) {
-    final products = _service.getProducts();
+    final products = widget._service.getProducts(_lastSortType);
+    final totalPrice = products.map((e) => e.price).reduce((value, element) => value + element);
+    int totalSale = ((totalPrice / 100) * 5).round();
 
     final theme = Theme.of(context);
 
@@ -21,19 +33,19 @@ class RecipeScreen extends StatelessWidget {
         centerTitle: true,
         title: Column(
           children: [
-            Text("Чек № 56"),
+            const Text("Чек № 56"),
             Text(
               "24.02.23 в 12:23",
               style: theme.appBarTheme.titleTextStyle!.copyWith(
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                color: Color(0xff60607B),
+                color: const Color(0xff60607B),
               ),
             ),
           ],
         ),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 20.0),
           child: Icon(
             Icons.arrow_back_ios,
             size: 24,
@@ -45,87 +57,32 @@ class RecipeScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Список покупок",
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => Container(),
-                      );
-                    },
-                    child: Container(
-                      height: 32,
-                      width: 32,
-                      color: Color(0xFFF1F1F1),
-                      child: Center(
-                        child: Icon(
-                          Icons.sort,
-                          size: 24,
-                          color: Color(0xFF60607B),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            ProductsTitle(
+              lastSortType: _lastSortType,
+              applySort: (newSortType) {
+                setState(() {
+                  _lastSortType = newSortType;
+                });
+              },
             ),
-            SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: products.length,
                 itemBuilder: (context, index) => ProductCard(product: products[index]),
               ),
             ),
+            const SizedBox(height: 16),
             Divider(
               height: 1,
-              color: Colors.grey,
+              color: Colors.grey.withOpacity(0.4),
             ),
-            SizedBox(
-              height: 24,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("В вашей покупке"),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("10 товаров"), Text("7842 руб")],
-                ),
-                SizedBox(height: 11),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Скидка 5%"), Text("-300 руб")],
-                ),
-                SizedBox(height: 11),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Итого"), Text("7542 руб")],
-                ),
-              ],
-            ),
+            const SizedBox(height: 24),
+            Totals(totalCount: products.length, totalPrice: totalPrice, totalSale: totalSale),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 3,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: "Каталог"),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Поиск"),
-          BottomNavigationBarItem(icon: Icon(Icons.local_mall), label: "Корзина"),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Личное"),
-        ],
-      ),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 }
