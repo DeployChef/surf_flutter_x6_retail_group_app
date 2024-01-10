@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/sort_type.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/sort_bottom_sheet.dart';
 
 class ProductsTitle extends StatelessWidget {
   Function(SortTypes) _applySort;
@@ -26,26 +27,8 @@ class ProductsTitle extends StatelessWidget {
             onTap: () {
               showModalBottomSheet(
                 context: context,
-                builder: (context) => Column(
-                  children: [
-                    Container(
-                      child: ElevatedButton(
-                        child: Text("ГОТОВО"),
-                        onPressed: () {
-                          _applySort(SortTypes.byNameAcc);
-                        },
-                      ),
-                    ),
-                    Container(
-                      child: ElevatedButton(
-                        child: Text("Сбросить"),
-                        onPressed: () {
-                          _applySort(SortTypes.noSort);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                isScrollControlled: true,
+                builder: (context) => SortBottomSheet(applySort: _applySort),
               );
             },
             child: Container(
