@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductRepository repo = PgProductRepository();
+    ProductRepository repo = MockProductRepository();
     ProductService service = ProductServiceImpl(repo);
 
     return MaterialApp(
