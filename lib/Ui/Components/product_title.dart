@@ -28,7 +28,7 @@ class ProductsTitle extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (context) => SortBottomSheet(applySort: _applySort),
+                builder: (context) => SortBottomSheet(applySort: _applySort, lastSortType: _lastSortType),
               );
             },
             child: Container(

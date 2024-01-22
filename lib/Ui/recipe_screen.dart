@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
+import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/sort_type.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/bottom_bar.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/categoried_product_list.dart';
+import 'package:surf_flutter_courses_template/Ui/Components/plain_product_list.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/product_card.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/product_title.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/totals.dart';
@@ -67,16 +70,10 @@ class _RecipeScreenState extends State<RecipeScreen> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: ListView.builder(
-                itemCount: products.length,
-                itemBuilder: (context, index) => ProductCard(product: products[index]),
-              ),
+              child: _lastSortType == SortTypes.byTypeAcc || _lastSortType == SortTypes.byTypeDec ? CategoriedProductList(products: products) : PlainProductList(products: products),
             ),
             const SizedBox(height: 16),
-            Divider(
-              height: 1,
-              color: Colors.grey.withOpacity(0.4),
-            ),
+            const Divider(),
             const SizedBox(height: 24),
             Totals(totalCount: products.length, totalPrice: totalPrice, totalSale: totalSale),
           ],
