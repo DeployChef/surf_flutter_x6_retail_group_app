@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:surf_flutter_courses_template/DataAccess/Interfaces/product_repository.dart';
+import 'package:surf_flutter_courses_template/DataAccess/Interfaces/i_product_repository.dart';
 import 'package:surf_flutter_courses_template/DataAccess/mock_product_repository.dart';
-import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
-import 'package:surf_flutter_courses_template/Domain/product_service_impl.dart';
+import 'package:surf_flutter_courses_template/Domain/Interfaces/i_product_service.dart';
+import 'package:surf_flutter_courses_template/Domain/product_service.dart';
 import 'package:surf_flutter_courses_template/Ui/recipe_screen.dart';
 import 'package:surf_flutter_courses_template/themes.dart';
 
@@ -15,8 +15,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductRepository repo = MockProductRepository();
-    ProductService service = ProductServiceImpl(repo);
+    IProductRepository repo = MockProductRepository();
+    IProductService service = ProductService(repo);
 
     return MaterialApp(
       theme: AppTheme.lightTheme,

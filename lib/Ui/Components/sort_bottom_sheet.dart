@@ -56,7 +56,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   ),
                 ],
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               SortRadio(
                   title: Text(
                     "Без сортировки",
@@ -66,16 +66,16 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   groupValue: _sortValue,
                   onChanged: (value) {
                     setState(() {
-                      _sortValue = value!;
+                      _sortValue = value;
                     });
                   }),
-              SizedBox(height: 20),
-              Divider(),
+              const SizedBox(height: 20),
+              const Divider(),
               Text(
                 "По имени",
                 style: theme.textTheme.bodySmall,
               ),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               SortRadio(
                 title: Text(
                   "По имени от А до Я",
@@ -89,7 +89,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   });
                 },
               ),
-              SizedBox(height: 36),
+              const SizedBox(height: 36),
               SortRadio(
                 title: Text(
                   "По имени от Я до А",
@@ -103,13 +103,13 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   });
                 },
               ),
-              SizedBox(height: 20),
-              Divider(),
+              const SizedBox(height: 20),
+              const Divider(),
               Text(
                 "По цене",
                 style: theme.textTheme.bodySmall,
               ),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               SortRadio(
                 title: Text(
                   "По возрастанию",
@@ -123,7 +123,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   });
                 },
               ),
-              SizedBox(height: 36),
+              const SizedBox(height: 36),
               SortRadio(
                 title: Text(
                   "По убыванию",
@@ -137,13 +137,13 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   });
                 },
               ),
-              SizedBox(height: 20),
-              Divider(),
+              const SizedBox(height: 20),
+              const Divider(),
               Text(
                 "По типу",
                 style: theme.textTheme.bodySmall,
               ),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               SortRadio(
                 title: Text(
                   "По типу от А до Я",
@@ -157,7 +157,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   });
                 },
               ),
-              SizedBox(height: 36),
+              const SizedBox(height: 36),
               SortRadio(
                 title: Text(
                   "По типу от Я до А",
@@ -171,7 +171,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   });
                 },
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Expanded(
                 child: Container(),
               ),
@@ -180,7 +180,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff67CD00),
+                    backgroundColor: const Color(0xff67CD00),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -204,12 +204,12 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
 }
 
 class SortRadio extends StatelessWidget {
-  Widget title;
-  SortTypes value;
-  SortTypes groupValue;
-  Function(SortTypes value) onChanged;
+  final Widget title;
+  final SortTypes value;
+  final SortTypes groupValue;
+  final Function(SortTypes value) onChanged;
 
-  SortRadio({
+  const SortRadio({
     super.key,
     required this.title,
     required this.value,

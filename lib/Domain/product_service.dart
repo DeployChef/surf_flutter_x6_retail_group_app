@@ -1,12 +1,12 @@
-import 'package:surf_flutter_courses_template/DataAccess/Interfaces/product_repository.dart';
-import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
+import 'package:surf_flutter_courses_template/DataAccess/Interfaces/i_product_repository.dart';
+import 'package:surf_flutter_courses_template/Domain/Interfaces/i_product_service.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/sort_type.dart';
 
-class ProductServiceImpl implements ProductService {
-  ProductRepository _repo;
+class ProductService implements IProductService {
+  final IProductRepository _repo;
 
-  ProductServiceImpl(this._repo);
+  ProductService(this._repo);
 
   @override
   List<ProductEntity> getProducts(SortTypes sortType) {
@@ -34,7 +34,5 @@ class ProductServiceImpl implements ProductService {
         product.sort((a, b) => b.category.name.compareTo(a.category.name));
         return product;
     }
-
-    return product;
   }
 }

@@ -1,20 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:surf_flutter_courses_template/Domain/Interfaces/product_service.dart';
-import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
+import 'package:surf_flutter_courses_template/Domain/Interfaces/i_product_service.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/sort_type.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/bottom_bar.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/categoried_product_list.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/plain_product_list.dart';
-import 'package:surf_flutter_courses_template/Ui/Components/product_card.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/product_title.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/totals.dart';
 
 class RecipeScreen extends StatefulWidget {
-  final ProductService _service;
+  final IProductService _service;
 
-  const RecipeScreen({super.key, required ProductService service}) : _service = service;
+  const RecipeScreen({super.key, required IProductService service}) : _service = service;
 
   @override
   State<RecipeScreen> createState() => _RecipeScreenState();
@@ -22,6 +18,8 @@ class RecipeScreen extends StatefulWidget {
 
 class _RecipeScreenState extends State<RecipeScreen> {
   SortTypes _lastSortType = SortTypes.noSort;
+
+  bool get _isCategorized => _lastSortType == SortTypes.byTypeAcc || _lastSortType == SortTypes.byTypeDec;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +68,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: _lastSortType == SortTypes.byTypeAcc || _lastSortType == SortTypes.byTypeDec ? CategoriedProductList(products: products) : PlainProductList(products: products),
+              child: _isCategorized ? CategoriedProductList(products: products) : PlainProductList(products: products),
             ),
             const SizedBox(height: 16),
             const Divider(),

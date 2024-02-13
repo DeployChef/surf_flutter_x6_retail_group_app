@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:surf_flutter_courses_template/Domain/Models/poroduct_entity.dart';
-import 'package:surf_flutter_courses_template/Ui/Components/plain_product_list.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/product_card.dart';
 
 class CategoriedProductList extends StatelessWidget {
@@ -34,13 +33,13 @@ class CategoriedProductList extends StatelessWidget {
               key,
               style: theme.textTheme.bodyMedium?.copyWith(fontSize: 18, fontWeight: FontWeight.w700),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ...group!.map((e) => ProductCard(product: e)),
             if (!isLastItem) ...[
-              Divider(),
-              SizedBox(height: 20),
+              const Divider(),
+              const SizedBox(height: 20),
             ],
           ],
         );

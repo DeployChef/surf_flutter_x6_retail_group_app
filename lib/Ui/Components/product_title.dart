@@ -3,10 +3,10 @@ import 'package:surf_flutter_courses_template/Domain/Models/sort_type.dart';
 import 'package:surf_flutter_courses_template/Ui/Components/sort_bottom_sheet.dart';
 
 class ProductsTitle extends StatelessWidget {
-  Function(SortTypes) _applySort;
-  SortTypes _lastSortType;
+  final Function(SortTypes) _applySort;
+  final SortTypes _lastSortType;
 
-  ProductsTitle({super.key, required Function(SortTypes) applySort, required SortTypes lastSortType})
+  const ProductsTitle({super.key, required Function(SortTypes) applySort, required SortTypes lastSortType})
       : _applySort = applySort,
         _lastSortType = lastSortType;
 
@@ -21,9 +21,10 @@ class ProductsTitle extends StatelessWidget {
           "Список покупок",
           style: theme.textTheme.bodyMedium?.copyWith(fontSize: 18, fontWeight: FontWeight.w700),
         ),
-        ClipRRect(
+        Material(
           borderRadius: BorderRadius.circular(8),
-          child: InkWell(
+          clipBehavior: Clip.antiAlias,
+          child: GestureDetector(
             onTap: () {
               showModalBottomSheet(
                 context: context,
@@ -37,7 +38,7 @@ class ProductsTitle extends StatelessWidget {
               color: const Color(0xFFF1F1F1),
               child: Stack(
                 children: [
-                  Center(
+                  const Center(
                     child: Icon(
                       Icons.sort,
                       size: 24,

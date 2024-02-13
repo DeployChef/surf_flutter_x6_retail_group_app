@@ -48,7 +48,7 @@ class Totals extends StatelessWidget {
               style: theme.textTheme.bodySmall,
             ),
             Text(
-              "${_totalSale} руб",
+              "$_totalSale руб",
               style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
             )
           ],
